@@ -16,4 +16,4 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 
 ## Project Log
 
-17/01/2026 - Initialized the project. Created a script that checks current workstation specs (mainly utility purposes)
+17/01/2026 - Initialized the project. Created a script that checks current workstation specs (mainly utility purposes). Created utils.py which contains a memory offloader function for now, will be used for _Memory Swapping_.
