@@ -16,4 +16,4 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 
 ## Project Log
 
-17/01/2026 - Initialized the project.
+17/01/2026 - Initialized the project. Created a script that checks current workstation specs (mainly utility purposes)
