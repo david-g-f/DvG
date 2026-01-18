@@ -4,6 +4,16 @@ This repository will document and reflect the progress of development of my fina
 
 The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injection Attacks (BIPIA) due to its open sourceness, robustness and ease of access.
 
+## Specs
+
+- SLM: Microsoft Phi-3 Mini 3.8B Instruct
+
+- LLM: Llama 3.1 8B Instruct
+
+- VDB: ChromaDB
+
+- Dataset(s): Microsoft BIPIA
+
 ## Planned Features
 
 17/01/2026 - _Memory Swapping_. The laptop in which this project is being developed possesses only 8GB of VRAM. Phi-3 3.8B Mini Instruct requires around 2.5GB, while the Llama 8B Instruct will need around 5.5 GB. To rigorously and effectively ensure that the laptop is capable of running both models "at the same time" (simulating an actual RAG system that contains both the LLM and the SLM filter):
