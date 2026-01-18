@@ -2,6 +2,8 @@
 
 This repository will document and reflect the progress of development of my final year project, a _Small Language Model_ (SLM) filter to protect _RAG-based_ Large Language Models (LLM) from _Indirect Prompt Injection_ (IPI).
 
+The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injection Attacks (BIPIA) due to its open sourceness, robustness and ease of access.
+
 ## Planned Features
 
 17/01/2026 - _Memory Swapping_. The laptop in which this project is being developed possesses only 8GB of VRAM. Phi-3 3.8B Mini Instruct requires around 2.5GB, while the Llama 8B Instruct will need around 5.5 GB. To rigorously and effectively ensure that the laptop is capable of running both models "at the same time" (simulating an actual RAG system that contains both the LLM and the SLM filter):
@@ -17,3 +19,5 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 ## Project Log
 
 17/01/2026 - Initialized the project. Created a script that checks current workstation specs (mainly utility purposes). Created utils.py which contains a memory offloader function for now, will be used for _Memory Swapping_.
+
+18/01/2026 - Cloned BIPIA repo to be used for training the SLM.
