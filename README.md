@@ -36,4 +36,4 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 
 ---
 
-18/01/2026 - Cloned BIPIA repo to be used for training the SLM.
+18/01/2026 - Cloned BIPIA repo to be used for training the SLM. Acquired access to Llama 3.1. Updated memory swapping function and added authentication script to ensure access to both LLM and SLM before development.
