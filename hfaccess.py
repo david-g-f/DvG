@@ -25,6 +25,9 @@ def checkAccess():
         logging.info("Login to HuggingFace successful. Attempting to load Llama 3.1 now...")
         tokenizer = AutoTokenizer.from_pretrained(os.getenv("LLMID"))
         logging.info("Access to LLM granted and ready to use.")
+        logging.info("Attempting to access SLM...")
+        tokenizer2 = AutoTokenizer.from_pretrained(os.getenv("SLMID"))
+        logging.info("Access to SLM granted and ready to use.")
 
     except Exception as err:
         logging.error("Access denied as an exception has been raised: {err}")
