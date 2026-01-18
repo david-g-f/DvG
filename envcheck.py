@@ -17,11 +17,12 @@ def verifyStation():
         return
     
     gpu = torch.cuda.get_device_name(0)
-    vram = torch.cuda.mem_get_info(0)[0] / 1024**3
-    logging.info(f"Current GPU: {gpu}.")
-    logging.info(f"VRAM: {vram:.2f}")
+    vram = torch.cuda.get_device_properties(0).total_memory / (1024 ** 3)
 
-    logging.info("Memory Swapping will be used to manage the VRAM constraint (SLM scans data, computes result, is offloaded for the LLM to load onto VRAM, result is then processed)")
+    logging.info(f"Current GPU: {gpu}.")
+    logging.info(f"VRAM: {vram:.2f} GB")
+
+    logging.info("Memory Swapping will be used to manage the VRAM constraint.")
     
     libs = ['transformers', 'peft', 'bitsandbytes', 'accelerate', 'unsloth'] # Necessary libraries for using and fine tuning SLM
     for lib in libs:
