@@ -34,7 +34,3 @@ def clearVRAM():
     logging.info(f" -- Current Occupied Memory: {vramFinal:.2f} GB")
     logging.info(f" -- Free Memory: {vramTotal - vramFinal:.2f} / {vramTotal:.2f} GB")
     print("----")
-
-
-if __name__ == "__main__":
-    checkVRAM()
