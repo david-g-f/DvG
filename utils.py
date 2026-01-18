@@ -1,13 +1,20 @@
 import torch
 import gc
 import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
 
 # Function that monitors current VRAM usage without clearing cache
 def checkVRAM():
     vramUsed = torch.cuda.memory_allocated() / (1024 ** 3)
     vramTotal = torch.cuda.get_device_properties(0).total_memory / (1024 ** 3)
     logging.info("--- VRAM Monitor")
-    logging.info(" -- Used VRAM: {vramUsed:.2f} / {vramTotal:.2f} GB")
+    logging.info(f" -- Used VRAM: {vramUsed:.2f} / {vramTotal:.2f} GB")
     print("----")
     return vramUsed, vramTotal 
 
@@ -27,3 +34,7 @@ def clearVRAM():
     logging.info(f" -- Current Occupied Memory: {vramFinal:.2f} GB")
     logging.info(f" -- Free Memory: {vramTotal - vramFinal:.2f} / {vramTotal:.2f} GB")
     print("----")
+
+
+if __name__ == "__main__":
+    checkVRAM()
