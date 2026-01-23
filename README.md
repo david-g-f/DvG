@@ -37,3 +37,7 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 ---
 
 18/01/2026 - Cloned BIPIA repo to be used for training the SLM. Acquired access to Llama 3.1. Updated memory swapping function and added authentication script to ensure access to both LLM and SLM before development.
+
+---
+
+23/01/2026 - _Implemented an example IPI vulnerability test_ on the Phi-3 model to demonstrate the effects of altering the prompt on the tokenizer and model. Phi-3 is used to demonstrate this vulnerability, where an example clean traceback call sourced from BIPIA, coupled with the given code, is then appended with a humanly-written string by a threat actor (simulating IPI) that attempts to diverge intended performance entirely. In ``vulnerability.py``, the prompt is appended with an adversarial phrase to ignore previous comments and instead supply the user with a double chocolate cookie recipe, all in full caps.
