@@ -16,7 +16,7 @@ The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injecti
 
 ## Planned Features
 
-17/01/2026 - _Memory Swapping_. The laptop in which this project is being developed possesses only 8GB of VRAM. Phi-3 3.8B Mini Instruct will require around 2.5GB, while the Llama 8B Instruct will need around 5.5 GB. To rigorously and effectively ensure that the laptop is capable of running both models "at the same time" (simulating an actual RAG system that contains both the LLM and the SLM filter):
+17/01/2026 - _Memory Swapping_. The laptop in which this project is being developed possesses only 8GB of VRAM. Phi-3 3.8B Mini Instruct has been observed to require around 2.11GB, and the Llama 8B Instruct 5.1 GB. To rigorously and effectively ensure that the laptop is capable of running both models "at the same time" (simulating an actual RAG system that contains both the LLM and the SLM filter):
 
 - The SLM will first be loaded into memory to scan the data and produce a result (based on whether the data is malignant or benign)
 
