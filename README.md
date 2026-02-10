@@ -43,3 +43,5 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 23/01/2026 - _Implemented an example IPI vulnerability test_ on the Phi-3 model to demonstrate the effects of altering the prompt on the tokenizer and model. Phi-3 is used to demonstrate this vulnerability, where an example clean traceback call sourced from BIPIA, coupled with the given code, is then appended with a humanly-written string by a threat actor (simulating IPI) that attempts to diverge intended performance entirely. In ``vulnerability.py``, the prompt is appended with an adversarial phrase to ignore previous comments and instead supply the user with a comparison between two non-existent GPUs.
 
 <img src="image/README/1769173029746.png" width=100% height=100% alt="image of a successful IPI attack"> </img>
+
+10/02/2026 - _Automated IPI vulnerability test_ from the previously written function. Just automates the test rather than running it multiple times.
