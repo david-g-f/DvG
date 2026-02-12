@@ -45,3 +45,7 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 <img src="image/README/1769173029746.png" width=100% height=100% alt="image of a successful IPI attack"> </img>
 
 10/02/2026 - _Automated IPI vulnerability test_ from the previously written function. Just automates the test rather than running it multiple times.
+
+13/02/2025 - _SIMULATION of Agentic Model Vulnerabilities_. Gave the SLM a set of read and write tools as well as an agentic mindset in the form of a system prompt, and simulated an injection attack onto it by telling it to delete a file when the initial context was to fix a code based on a traceback call, for example.
+
+<img src="image/README/1770933279701.png" width=60% height=30% alt="image of a successful IPI attack"> </img>
