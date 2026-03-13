@@ -33,7 +33,7 @@ test_hf = test_hf.map(tokenize, batched=True)
 # Setting up the model for training
 model = tf.DistilBertForSequenceClassification.from_pretrained(os.getenv("SLMID2"), num_labels=2)
 training_settings = tf.TrainingArguments(
-    output_dir="./metrics/distilibert_tune",
+    output_dir="../metrics/distilibert_tune",
     eval_strategy="epoch",
     save_strategy="epoch",
     metric_for_best_model="eval_loss",
@@ -41,7 +41,7 @@ training_settings = tf.TrainingArguments(
     per_device_train_batch_size=16,
     num_train_epochs=3,
     weight_decay=0.01,
-    logging_dir="./metrics/distilibert_logs",
+    logging_dir="../metrics/distilibert_logs",
     load_best_model_at_end=True
 )
 
