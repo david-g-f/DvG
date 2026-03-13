@@ -16,7 +16,7 @@ logging.basicConfig( # Configure terminal logger
 
 
 # Creating the data structures 
-data = pd.read_csv("metrics/training_data_a.csv")
+data = pd.read_csv("../metrics/training_data_a.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
 train_hf = Dataset.from_pandas(train_data)
 test_hf = Dataset.from_pandas(test_data)
