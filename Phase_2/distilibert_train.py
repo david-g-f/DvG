@@ -54,6 +54,6 @@ trainer = tf.Trainer(
 
 logging.info("-- Beginning DistiliBERT Fine Tuning.")
 trainer.train()
-model.save_pretrained("./metrics/distilibert_trained")
-tokenizer.save_pretrained("./metrics/distilibert_trained")
+model.save_pretrained("../metrics/distilibert_trained")
+tokenizer.save_pretrained("../metrics/distilibert_trained")
 logging.info("-- DistiliBERT Training complete.")
