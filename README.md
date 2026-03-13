@@ -6,7 +6,7 @@ The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injecti
 
 ## Specs
 
-- SLM: Microsoft Phi-3 Mini 4k Instruct
+- SLM: Microsoft Phi-3 Mini 4k Instruct, DistiliBERT
 
 - LLM: Llama 3.1 8B Instruct
 
