@@ -51,3 +51,5 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 <img src="image/README/1770933279701.png" width=60% height=30% alt="image of a successful IPI attack"> </img>
 
 10/03/2026 - _Constructing the Dataset for the SLM filters._ Throughout the experimentation and testing of vulnerabilities with language models, both through adversarial phrases and tool calls, it has been concluded that there should be two minimal, lightweight but specialized filters that monitor both risky plaintext, as well as suspicious code.
+
+13/03/2026 - _Test Training DistiliBERT to classify malignant and benign text using BIPIA_. For now, a selection of code tracebacks were taken from the BIPIA dataset. 50% of them were augmented with adversarial phrases, and a few benign but seemingly suspicious phrases were also added to the dataset. This maintains an approximate 50/50 even split with test data and prevents classification bias.
