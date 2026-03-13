@@ -56,3 +56,5 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 ![1773426205268](image/README/1773426205268.png)
 Above shows the model undergoing a 3 epoch training. It can be observed that the eval_loss consistently drops in 3 epochs, demonstrating the capability of a tiny model to learn patterns when given a specialized task.
 _ISSUE_: The BIPIA dataset doesn't offer enough data for DistiliBERT to learn properly.
+![1773428238749](image/README/1773428238749.png)
+The above image shows 3 different prompts, in differing severity according to the highlighted color, as well as the model's inference results. We can see that all of them are within the range of 0.5, showing a critical uncertainty within the model that is most probably as a result of a lack of data (BIPIA offers 50-100 total entries for the model to be trained on).
