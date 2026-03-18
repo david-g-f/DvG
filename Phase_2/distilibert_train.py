@@ -37,7 +37,7 @@ class WeightedTrainer(tf.Trainer): # Subclass of Trainer that has weightage, jus
         
 
 # Creating the data structures 
-data = pd.read_csv("../metrics/training_data_c.csv")
+data = pd.read_csv("../metrics/training_data_d.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
 train_hf = Dataset.from_pandas(train_data)
 test_hf = Dataset.from_pandas(test_data)
@@ -54,7 +54,7 @@ test_hf = test_hf.map(tokenize, batched=True)
 # Setting up the model for training
 model = tf.DistilBertForSequenceClassification.from_pretrained(os.getenv("SLMID2"), num_labels=2)
 training_settings = tf.TrainingArguments(
-    output_dir="../metrics/distilibert_tune_v3",
+    output_dir="../metrics/distilibert_tune_v4",
     eval_strategy="epoch",
     save_strategy="epoch",
     metric_for_best_model="eval_loss",
@@ -62,7 +62,7 @@ training_settings = tf.TrainingArguments(
     per_device_train_batch_size=16,
     num_train_epochs=3,
     weight_decay=0.01,
-    logging_dir="../metrics/distilibert_logs_v3",
+    logging_dir="../metrics/distilibert_logs_v4",
     load_best_model_at_end=True
 )
 
@@ -76,6 +76,6 @@ trainer = WeightedTrainer( # Experimenting with the weightage now
 
 logging.info("-- Beginning DistiliBERT Fine Tuning.")
 trainer.train()
-model.save_pretrained("../metrics/distilibert_trained_v3")
-tokenizer.save_pretrained("../metrics/distilibert_trained_v3")
+model.save_pretrained("../metrics/distilibert_trained_v4")
+tokenizer.save_pretrained("../metrics/distilibert_trained_v4")
 logging.info("-- DistiliBERT Training complete.")
