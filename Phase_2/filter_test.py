@@ -34,8 +34,11 @@ def evaluate_security():
         logging.info(f"-- Time taken to compute probability: {duration:.2f}s")
 
         score = probabilities[0][1].item()
-        malignant = score > 0.7
+        malignant = score > 0.55
         status = 'BLOCKED. Prompt has been deemed unsafe.' if malignant else 'SAFE. Prompt has been deemed clean.'
+
+        if 0.45 < score <= 0.55:
+            logging.warning(f"-- WARNING: Probability is dangerously suspicious.")
 
         logging.info(f"-- Test complete. STATUS: {status}.")
         logging.info(f"-- Malignant Probability of input: {score:.2f}")
