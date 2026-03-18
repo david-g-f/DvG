@@ -4,8 +4,11 @@ import logging, sys
 import torch
 import transformers as tf
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, f1_score
 from datasets import Dataset
 import pandas as pd
+import numpy as np
+
 
 dotenv.load_dotenv()
 logging.basicConfig( # Configure terminal logger
@@ -14,9 +17,15 @@ logging.basicConfig( # Configure terminal logger
     handlers=[logging.StreamHandler(sys.stdout)]
 )
 
+def metrics(results): # Utility function to help visualize training results
+    logits, labels = results
+    prediction = np.argmax(logits, axis=-1)
+    accuracy = accuracy_score(labels, prediction)
+    f1 = f1_score(labels, prediction, average="weighted")
+    return {"accuracy": accuracy, "f1": f1}
 
 # Creating the data structures 
-data = pd.read_csv("../metrics/training_data_a.csv")
+data = pd.read_csv("../metrics/training_data_b.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
 train_hf = Dataset.from_pandas(train_data)
 test_hf = Dataset.from_pandas(test_data)
@@ -33,7 +42,7 @@ test_hf = test_hf.map(tokenize, batched=True)
 # Setting up the model for training
 model = tf.DistilBertForSequenceClassification.from_pretrained(os.getenv("SLMID2"), num_labels=2)
 training_settings = tf.TrainingArguments(
-    output_dir="../metrics/distilibert_tune",
+    output_dir="../metrics/distilibert_tune_v2",
     eval_strategy="epoch",
     save_strategy="epoch",
     metric_for_best_model="eval_loss",
@@ -41,7 +50,7 @@ training_settings = tf.TrainingArguments(
     per_device_train_batch_size=16,
     num_train_epochs=3,
     weight_decay=0.01,
-    logging_dir="../metrics/distilibert_logs",
+    logging_dir="../metrics/distilibert_logs_v2",
     load_best_model_at_end=True
 )
 
@@ -49,11 +58,12 @@ trainer = tf.Trainer(
     model=model,
     args=training_settings,
     train_dataset=train_hf,
-    eval_dataset=test_hf
+    eval_dataset=test_hf,
+    compute_metrics=metrics
 )
 
 logging.info("-- Beginning DistiliBERT Fine Tuning.")
 trainer.train()
-model.save_pretrained("../metrics/distilibert_trained")
-tokenizer.save_pretrained("../metrics/distilibert_trained")
+model.save_pretrained("../metrics/distilibert_trained_v2")
+tokenizer.save_pretrained("../metrics/distilibert_trained_v2")
 logging.info("-- DistiliBERT Training complete.")
