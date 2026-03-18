@@ -25,7 +25,7 @@ def metrics(results): # Utility function to help visualize training results
     return {"accuracy": accuracy, "f1": f1}
 
 class WeightedTrainer(tf.Trainer): # Subclass of Trainer that has weightage, just an experiment
-    def loss(self, model, inputs, return_outputs=False, **kwargs):
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.get('labels')
         outputs = model(**inputs)
         logits = outputs.get("logits")
