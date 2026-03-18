@@ -24,6 +24,18 @@ def metrics(results): # Utility function to help visualize training results
     f1 = f1_score(labels, prediction, average="weighted")
     return {"accuracy": accuracy, "f1": f1}
 
+class WeightedTrainer(tf.Trainer): # Subclass of Trainer that has weightage, just an experiment
+    def loss(self, model, inputs, return_outputs=False, **kwargs):
+        labels = inputs.get('labels')
+        outputs = model(**inputs)
+        logits = outputs.get("logits")
+
+        loss_factor = torch.nn.CrossEntropyLoss(weight=torch.tensor([1.0,1.75]).to("cuda")) # 1 Labels have 1.75x more weight
+        loss = loss_factor(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+
+        return (loss, outputs) if return_outputs else loss
+        
+
 # Creating the data structures 
 data = pd.read_csv("../metrics/training_data_c.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
@@ -54,7 +66,7 @@ training_settings = tf.TrainingArguments(
     load_best_model_at_end=True
 )
 
-trainer = tf.Trainer(
+trainer = WeightedTrainer( # Experimenting with the weightage now
     model=model,
     args=training_settings,
     train_dataset=train_hf,
