@@ -25,7 +25,7 @@ def metrics(results): # Utility function to help visualize training results
     return {"accuracy": accuracy, "f1": f1}
 
 # Creating the data structures 
-data = pd.read_csv("../metrics/training_data_b.csv")
+data = pd.read_csv("../metrics/training_data_c.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
 train_hf = Dataset.from_pandas(train_data)
 test_hf = Dataset.from_pandas(test_data)
@@ -42,7 +42,7 @@ test_hf = test_hf.map(tokenize, batched=True)
 # Setting up the model for training
 model = tf.DistilBertForSequenceClassification.from_pretrained(os.getenv("SLMID2"), num_labels=2)
 training_settings = tf.TrainingArguments(
-    output_dir="../metrics/distilibert_tune_v2",
+    output_dir="../metrics/distilibert_tune_v3",
     eval_strategy="epoch",
     save_strategy="epoch",
     metric_for_best_model="eval_loss",
@@ -50,7 +50,7 @@ training_settings = tf.TrainingArguments(
     per_device_train_batch_size=16,
     num_train_epochs=3,
     weight_decay=0.01,
-    logging_dir="../metrics/distilibert_logs_v2",
+    logging_dir="../metrics/distilibert_logs_v3",
     load_best_model_at_end=True
 )
 
@@ -64,6 +64,6 @@ trainer = tf.Trainer(
 
 logging.info("-- Beginning DistiliBERT Fine Tuning.")
 trainer.train()
-model.save_pretrained("../metrics/distilibert_trained_v2")
-tokenizer.save_pretrained("../metrics/distilibert_trained_v2")
+model.save_pretrained("../metrics/distilibert_trained_v3")
+tokenizer.save_pretrained("../metrics/distilibert_trained_v3")
 logging.info("-- DistiliBERT Training complete.")
