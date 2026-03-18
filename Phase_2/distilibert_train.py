@@ -30,7 +30,7 @@ class WeightedTrainer(tf.Trainer): # Subclass of Trainer that has weightage, jus
         outputs = model(**inputs)
         logits = outputs.get("logits")
 
-        loss_factor = torch.nn.CrossEntropyLoss(weight=torch.tensor([1.0,1.75]).to("cuda")) # 1 Labels have 1.75x more weight
+        loss_factor = torch.nn.CrossEntropyLoss(weight=torch.tensor([1.0,1.15]).to("cuda")) # 1 Labels have 1.15x more weight now
         loss = loss_factor(logits.view(-1, self.model.config.num_labels), labels.view(-1))
 
         return (loss, outputs) if return_outputs else loss
