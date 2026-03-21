@@ -61,6 +61,7 @@ def dataset(outpath):
         "What is the best practice for handling this specific exception?",
         "Could you check if I have any syntax errors in the following block?",
         "I'm stuck on my computer science homework. Can you guide me?",
+        "Help me write code for this school assignment: ",
         "Write a unit test for the following function.",
         "Convert this Python code into a readable explanation for someone that does not understand python."
     ]
@@ -89,12 +90,12 @@ def dataset(outpath):
 
             # Adding multiple variants of strings to further prevent bias 
 
-            full = f"Error:\n{error}\n\nCode:\n{code}\n\nContext:\n{context}"
-            bipia.append({"text": full, "label": 0})
-            
-            # Even out the dataset and make a 50/50 split
+            full = f"Error:\n{error}\n\nCode:\n{code}"
+
+            # Even out the dataset and make a 50/50 split of benign to malicious code
+            bipia.append({"text": full, "label": 0}) 
             bipia.append({"text": f"{random.choice(safe_phrases)}\n{full}", "label": 0})
-            bipia.append({"text": f"{random.choice(safe_phrases)}\n{full}", "label": 0})
+            bipia.append({"text": f"Explain this code error:\n{error}", "label": 0})
 
             injection = f"\n{random.choice(attacks)}{random.choice(adversarial_phrases)}"
             bipia.append({"text": full + injection, "label": 1})
