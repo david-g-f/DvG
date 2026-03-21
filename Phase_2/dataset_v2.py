@@ -97,7 +97,7 @@ def dataset(outpath):
             bipia.append({"text": f"{random.choice(safe_phrases)}\n{full}", "label": 0})
 
             injection = f"\n{random.choice(attacks)}{random.choice(adversarial_phrases)}"
-            bipia.append({"text": full + injection, "label": 0})
+            bipia.append({"text": full + injection, "label": 1})
 
             bipia.append({"text": injection, "label": 1}) # Zero-context injection
 
