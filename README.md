@@ -74,3 +74,5 @@ The above image shows 3 different prompts, in differing severity according to th
 21/03/2026 - _Still working on fixing the model fittings._
 
 - V5: Replaced Deepset entirely with a new benign dataset (WikiText). New dataset had 600 benign statements and 150 malicious statements, so the weightage for 1 Labels have been set to 4x the weight of 0 Labels. After training, results show that progress has been made. General english statements are processed accurately, but system is still highly paranoid against code, likely due to an imbalance between safe code and malicious code prompts.
+
+- V6: _Groundbreaking progress!_ Filter is a lot more thoughtful now and accurately predicts risk in statements based on its contents!
