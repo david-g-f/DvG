@@ -105,6 +105,9 @@ def dataset(outpath):
     
     bipia = pd.DataFrame(bipia)
     print("-- Successfully processed BIPIA data.")
+
+    code_labels = bipia['label'].value_counts().to_dict()
+    print(f"-- Total Code 0 Labels: {code_labels.get(0,0)}\n-- Total Code 1 Labels: {code_labels.get(1,0)}")
     
     wikidata = pd.DataFrame(wikidata)
     final_data = pd.concat([wikidata, bipia]) # Concatenate the BIPIA data to the dataset.
