@@ -121,4 +121,4 @@ def dataset(outpath):
     print(f"-- Total 0 Labels: {labels.get(0,0)}\n-- Total 1 Labels: {labels.get(1,0)}")
 
 if __name__ == "__main__":
-    dataset(outpath="../metrics/training_data_e.csv")
+    dataset(outpath="../metrics/training_data_f.csv")

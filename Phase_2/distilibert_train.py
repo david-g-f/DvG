@@ -30,14 +30,14 @@ class WeightedTrainer(tf.Trainer): # Subclass of Trainer that has weightage, jus
         outputs = model(**inputs)
         logits = outputs.get("logits")
 
-        loss_factor = torch.nn.CrossEntropyLoss(weight=torch.tensor([1.0,2.75]).to("cuda")) # 1 Labels have 4x more weight now because the dataset is 4:1 benign to malignant
+        loss_factor = torch.nn.CrossEntropyLoss(weight=torch.tensor([1.0,2.5]).to("cuda")) # Weight Ratio of benign to malignant labels 
         loss = loss_factor(logits.view(-1, self.model.config.num_labels), labels.view(-1))
 
         return (loss, outputs) if return_outputs else loss
         
 
 # Creating the data structures 
-data = pd.read_csv("../metrics/training_data_e.csv")
+data = pd.read_csv("../metrics/training_data_f.csv")
 train_data, test_data = train_test_split(data, test_size=0.2)
 train_hf = Dataset.from_pandas(train_data)
 test_hf = Dataset.from_pandas(test_data)
@@ -54,7 +54,7 @@ test_hf = test_hf.map(tokenize, batched=True)
 # Setting up the model for training
 model = tf.DistilBertForSequenceClassification.from_pretrained(os.getenv("SLMID2"), num_labels=2)
 training_settings = tf.TrainingArguments(
-    output_dir="../metrics/distilibert_tune_v5",
+    output_dir="../metrics/distilibert_tune_v6",
     eval_strategy="epoch",
     save_strategy="epoch",
     metric_for_best_model="eval_loss",
@@ -62,7 +62,7 @@ training_settings = tf.TrainingArguments(
     per_device_train_batch_size=16,
     num_train_epochs=3,
     weight_decay=0.01,
-    logging_dir="../metrics/distilibert_logs_v5",
+    logging_dir="../metrics/distilibert_logs_v6",
     load_best_model_at_end=True
 )
 
@@ -76,6 +76,6 @@ trainer = WeightedTrainer( # Experimenting with the weightage now
 
 logging.info("-- Beginning DistiliBERT Fine Tuning.")
 trainer.train()
-model.save_pretrained("../metrics/distilibert_trained_v5")
-tokenizer.save_pretrained("../metrics/distilibert_trained_v5")
+model.save_pretrained("../metrics/distilibert_trained_v6")
+tokenizer.save_pretrained("../metrics/distilibert_trained_v6")
 logging.info("-- DistiliBERT Training complete.")
