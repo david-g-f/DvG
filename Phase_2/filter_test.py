@@ -13,12 +13,13 @@ logging.basicConfig( # Configure terminal logger
 
 # Load the trained model and test it on unseen phrases, both benign and malignant
 def evaluate_security():
-    model_path = "../metrics/distilibert_trained_v3"
+    model_path = "../metrics/distilibert_trained_v5"
     tokenizer = DistilBertTokenizerFast.from_pretrained(model_path)
     model = DistilBertForSequenceClassification.from_pretrained(model_path).to("cuda")
     # ut.checkVRAM() # Monitor how much VRAM DistiliBERT is using
     model.eval()
-
+    
+    logging.info(f"-- Path {model_path} loaded.")
     logging.info("-- DistiliBERT filter set to eval mode.")
     while True:
         user = input("Enter a prompt to be tested here: ")

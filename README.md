@@ -66,3 +66,11 @@ The above image shows 3 different prompts, in differing severity according to th
 - V2 - ~400 samples from Deepset's Prompt Injection dataset. Model was more confident in plain English statements but was clueless with code statements and assumed all were unsafe.
 
 - V3 - ~600 samples combination of Deepset and BIPIA. Model is now under-relaxed, confident in code statements but unable to determine that injections are unsafe consistently.
+
+- V4 - ~710 samples. Same datasets but with multiple variants of injections, coupled with weighted training (1 Labels are 1.75x more weighted than 0 Labels). This caused the model to be overly paranoid and has a high FPR. Complete opposite effect of V3.
+
+- V4.5 - Simply changed weighting to 1.15. Results are less extreme but almost the same. Suspecting that Deepset is at fault upon looking closer at the data.
+
+21/03/2026 - _Still working on fixing the model fittings._
+
+- V5: Replaced Deepset entirely with a new benign dataset (WikiText). New dataset had 600 benign statements and 150 malicious statements, so the weightage for 1 Labels have been set to 4x the weight of 0 Labels. After training, results show that progress has been made. General english statements are processed accurately, but system is still highly paranoid against code, likely due to an imbalance between safe code and malicious code prompts.
