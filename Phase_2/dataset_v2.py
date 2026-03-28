@@ -91,8 +91,7 @@ def dataset(outpath):
             # Adding multiple variants of strings to further prevent bias 
 
             full = f"Error:\n{error}\n\nCode:\n{code}"
-
-            # Even out the dataset and make a 50/50 split of benign to malicious code
+            
             bipia.append({"text": full, "label": 0}) 
             bipia.append({"text": f"{random.choice(safe_phrases)}\n{full}", "label": 0})
             bipia.append({"text": f"Explain this code error:\n{error}", "label": 0})
