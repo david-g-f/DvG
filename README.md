@@ -6,15 +6,11 @@ The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injecti
 
 ## Specs
 
-- SLM: Microsoft Phi-3 Mini 4k Instruct, DistiliBERT
+- SLM: DistiliBERT Base
 
-- LLM: Llama 3.1 8B Instruct
+- Dataset(s): Microsoft BIPIA, WikiText
 
-- VDB: ChromaDB
-
-- Dataset(s): Microsoft BIPIA
-
-## Planned Features
+## Research Log
 
 17/01/2026 - _Memory Swapping_. The laptop in which this project is being developed possesses only 8GB of VRAM. Phi-3 3.8B Mini Instruct has been observed to require around 2.11GB, and the Llama 8B Instruct 5.1 GB. To rigorously and effectively ensure that the laptop is capable of running both models "at the same time" (simulating an actual RAG system that contains both the LLM and the SLM filter):
 
@@ -30,7 +26,7 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 
 18/01/2026 - _Quantized Low-Rank Adaptation_ (QLoRA). 4-bit Quantization (NormalFloat 4) is the method to effectively fit language models into a more constrained VRAM environment with minimal performance degradation. Weights in these language models are usually stored in 16 bits. With NF4, they will be stored into 4 bits instead ($2^4 = 16$). This is a _necessary_ step as full parameter fine tuning or even loading the model without quantization will cost much more than 8GB of VRAM, rendering the project computationally infeasible to develop. However, with the model loaded via NF4, it will be infeasible to train the model, as the weights have been _frozen_ and will not be able to change. Therefore, QLoRA will be used to attach an amount of 16-bit matrices called 'Adapters' into the model, which will do the learning during the training process. These adapters are not only sleeker and more streamlined (a few megabytes in comparison to tens of gigabytes) but they are _portable_ (meaning you can use these trained LoRA adapters with other identical models, without altering the model itself), more stable because the base model remains untouched, thereby preventing _catastrophic forgetting_ (a fine tuning phenomenon), and are faster to train due to having fewer total parameters to update during the backwards pass.
 
-## Project Log
+## Methodology Log
 
 17/01/2026 - Initialized the project. Created a script that checks current workstation specs (mainly utility purposes). Created utils.py which contains a memory offloader function for now, will be used for _Memory Swapping_.
 
@@ -50,7 +46,7 @@ By following this procedure, approximately a net total of 2.5GB VRAM will be sav
 
 <img src="image/README/1770933279701.png" width=60% height=30% alt="image of a successful IPI attack"> </img>
 
-10/03/2026 - _Constructing the Dataset for the SLM filters._ Throughout the experimentation and testing of vulnerabilities with language models, both through adversarial phrases and tool calls, it has been concluded that there should be two minimal, lightweight but specialized filters that monitor both risky plaintext, as well as suspicious code.
+10/03/2026 - _Constructing the Dataset for the SLM filters._ Throughout the experimentation and testing of vulnerabilities with language models, both through adversarial phrases and tool calls, it has been concluded that there should instead be a minimal, lightweight but specialized filters that monitor both risky plaintext, as well as suspicious code.
 
 13/03/2026 - _Test Training DistiliBERT to classify malignant and benign text using BIPIA_. For now, a selection of code tracebacks were taken from the BIPIA dataset. 50% of them were augmented with adversarial phrases, and a few benign but seemingly suspicious phrases were also added to the dataset. This maintains an approximate 50/50 even split with test data and prevents classification bias. DistiliBERT was selected for being an extremely lightweight model (less than 100M parameters) and thus will be a great benchmark in the event of using multiple SLMs to classify data. It is worth noting that a model as small as BERT would suffer _diminishing_ returns from using a technique such as QLoRA as the loss in accuracy is not worth the gain in speed, due to it already being lightweight.
 ![1773426205268](image/README/1773426205268.png)
