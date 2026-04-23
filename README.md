@@ -2,7 +2,7 @@
 
 This repository will document and reflect the progress of development of my final year project, a _Small Language Model_ (SLM) filter to protect _RAG-based_ Large Language Models (LLM) from _Indirect Prompt Injection_ (IPI).
 
-The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injection Attacks (BIPIA) due to its open sourceness, robustness and ease of access.
+The dataset to be used will be Microsoft's Benchmark for Indirect Prompt Injection Attacks (BIPIA) due to its open sourceness, robustness and ease of access, as well as WikiText for its rich content in general English.
 
 ## Specs
 
@@ -72,3 +72,12 @@ The above image shows 3 different prompts, in differing severity according to th
 - V5: Replaced Deepset entirely with a new benign dataset (WikiText). New dataset had 600 benign statements and 150 malicious statements, so the weightage for 1 Labels have been set to 4x the weight of 0 Labels. After training, results show that progress has been made. General english statements are processed accurately, but system is still highly paranoid against code, likely due to an imbalance between safe code and malicious code prompts.
 
 - V6: _Groundbreaking progress!_ Filter is a lot more thoughtful now and accurately predicts risk in statements based on its contents!
+
+## Future Works
+- Dataset was not complete enough to warrant a proper and total scope over the problem space. Needs more variance in IPI attacks.
+- More complexity can be introduced to make the SLM more sophisticated and rigorous, such as a memory bank containing known safe prompts for better deductive reasoning.
+- Additional security checks for "risky" queries (queries where $0.45 <= malignant score <= 0.55$) can be added to doubly ensure the safety (or danger) of the query assuming it does not affect runtime
+
+## Final Results
+- Accuracy: 93.23%
+- F1 Score = 0.9284
